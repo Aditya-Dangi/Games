@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StonePaperScissors</title>
+  <link rel="stylesheet" href="stonepaperscissors.css">
+</head>
+<body>
+  <div class="game">
+    <div class="game-2">
+      <button class="Stone" onclick="
+      startGame('Stone');
+    ">
+      <img src="Stone.jpg" alt="Stone">
+    </button>
+    <button onclick="
+      startGame('Paper');    
+    ">
+      <img src="Paper.jpg" alt="Paper">
+    </button>
+    <button onclick="
+      startGame('Scissors');  
+    ">
+      <img src="Scissors.jpg" alt="Scissors">
+    </button>
+    </div>
+    <p class="scoremove"></p>
+    <p class="scoreresult"></p>
+    <p class="scoreupdate">
+    </p>
+  
+    <button class="reset-button" onclick="
+      score.Wins=0;
+      score.Loses=0;
+      score.Ties=0;
+      localStorage.removeItem('score');   //Cannot read properties of null
+      updatescore();
+    ">
+      Reset
+    </button>
+  
+  </div>
+  <script src="stonepaperscissors.js">
+  </script>
+</body>
+</html>

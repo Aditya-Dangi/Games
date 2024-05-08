@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="buttons">
+    <button id="start">Start</button>
+    <button id="reset">Reset</button>
+  </div>
+  
+  <div id="main">
+    <div id="panel">
+      <div id="panel-top">
+        <div class="elements">
+          <h1>Time</h1>
+          <div id="timer-box" class="element-box">
+            60
+          </div>
+        </div>
+        <div class="elements">
+          <h1>Hit</h1>
+          <div id="hit-box" class="element-box">
+            1
+          </div>
+        </div>
+        <div class="elements">
+          <h1>Your Hit</h1>
+          <div id="your-hit-box" class="element-box">
+            
+          </div>
+        </div>
+        <div class="elements">
+          <h1>Score</h1>
+          <div id="score-box" class="element-box">
+            0
+          </div>
+        </div>
+      </div>
+      <div id="panel-bottom">
+      </div>
+    </div>
+  </div>
+  
+  <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Your score is: <span id="score-dialog"></span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

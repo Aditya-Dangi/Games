@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Game</title>
+  <style>
+    body 
+    {
+      background-color: rgb(0, 0, 0);
+    }
+    .mainBody
+    {
+      text-align: center;
+      margin-top: 12%;
+      height: 100%;
+      width: 100%;
+    }
+    .para1 
+    {
+      color: white;
+      font-size: 120px;
+      margin-top: 0;
+      font-weight: 800;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: slideIn 1.5s ease-out;
+    }
+    @keyframes slideIn 
+    {
+      from 
+      {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to 
+      {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .startGame 
+    {
+      border: 15px double black;
+      height: 10%;
+      width: 20%;
+      font-size: 400%;
+      align-items: center;
+      border-radius: 1px;
+      font-weight: 900;
+      padding: 1%;
+      cursor: pointer;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      position: relative;
+      overflow: hidden;
+      transition: 0.5s all;
+      z-index: 2;
+
+      width: 20%;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: 
+        typing 1.5s steps(1000),
+        cursor 1.5s step-end infinite alternate;
+    }
+    @keyframes typing
+    {
+      from{width: 30%}
+    }
+
+    .startGame::before 
+    {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: #e20000;
+      z-index: 1;
+      transition: .8s all;
+      top: 0;
+      border-radius: 0 0 50% 50%;
+    }
+    .startGame:hover
+    {
+      position: relative;
+      color: white;
+      z-index: 2;
+    }
+    .startGame:hover::before 
+    {
+      height: 200%;
+      z-index: -1;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="mainBody">
+    <p class="para1">
+      Stone Paper Scissors
+    </p>
+    <a href="stonepaperscissors.html">
+      <button class="startGame">
+        START
+      </button>
+    </a>
+  </div>
+</body>
+</html>
