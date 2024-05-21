@@ -1,118 +1,144 @@
-var time = 60;
-var score = 0;
-var hitNumber;
-var eventNumber;
-var lastHit;
-var gameStarted = false;
-var timer;
-var closeBtn = document.querySelector(".close");
+// Initialize game variables
+let time = 60;
+let score = 0;
+let hitNumber;
+let lastHit;
+let gameStarted = false;
+let timer;
+
+// DOM elements
+const panelBottom = document.querySelector('#panel-bottom');
+const timerBox = document.querySelector('#timer-box');
+const hitBox = document.querySelector('#hit-box');
+const yourHitBox = document.querySelector('#your-hit-box');
+const scoreBox = document.querySelector('#score-box');
+const modal = document.getElementById("modal");
+const scoreDialog = document.getElementById("score-dialog");
+const startButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
+const closeButton = document.querySelector(".close");
+
+// Function to generate bubbles based on viewport width
+function numberBubbles() {
+  const panelBottom = document.querySelector('#panel-bottom');
+  const viewportWidth = window.innerWidth;
+
+  let maxBubbles;
+  
+  if (viewportWidth > 2000) {
+    maxBubbles = 128; 
+  } 
+  else if (viewportWidth >= 1440) {
+    maxBubbles = 105; 
+  } 
+  else if (viewportWidth >= 1024) {
+    maxBubbles = 126; 
+  } 
+  else if (viewportWidth >= 768) {
+    maxBubbles = 100; 
+  } 
+  else {
+    maxBubbles = 84; 
+  }
+
+  let clutter = "";
+  for (let i = 0; i < maxBubbles; i++) {
+    let x = Math.floor(Math.random() * 10);
+    clutter += `<div class="numbers-button">${x}</div>`;
+  }
+  panelBottom.innerHTML = clutter;
+}
 
 
-function timerFunction()
-{
-  timer = setInterval(() => 
-  {
-    if(time > 0)
-    {
-      time--;
-      document.querySelector('#timer-box').textContent = time;
+// Function to start the game
+function startGame() {
+  startButton.addEventListener("click", () => {
+    if (!gameStarted) {
+      gameStarted = true;
+      timerFunction();
+      generateRandomHit();
+      updateScore();
+      eventBubbling();
     }
-    else
-    {
+  });
+}
+
+// Function to reset the game
+function resetGame() {
+  clearInterval(timer); 
+  time = 60; 
+  score = 0;
+  hitNumber = null;
+  lastHit = null;
+  gameStarted = false;
+  timerBox.textContent = time;
+  yourHitBox.textContent = '';
+  scoreBox.textContent = score;
+  panelBottom.innerHTML = ''; // Clear existing bubbles
+  panelBottom.removeEventListener("click", eventBubbling);
+  numberBubbles(); // Regenerate bubbles after reset
+}
+
+// Timer function
+function timerFunction() {
+  timer = setInterval(() => {
+    if (time > 0) {
+      time--;
+      timerBox.textContent = time;
+    } else {
       clearInterval(timer);
-      score = document.querySelector('#score-box').textContent;
-      var modal = document.getElementById("modal");
-      var scoreDialog = document.getElementById("score-dialog");
+      score = scoreBox.textContent;
       scoreDialog.textContent = score;
       modal.style.display = "block";
     }
-  },1000);
+  }, 1000);
 }
 
-function generateRandomHit()
-{
-  const hitBox =  document.querySelector('#hit-box');
+// Function to generate random hit number
+function generateRandomHit() {
   hitNumber = Math.floor(Math.random() * 10);
   hitBox.textContent = hitNumber;
 }
 
-function numberBubbles()
-{
-  var clutter = "";
-  for(var i=1; i<145; i++)
-  {
-    let x = Math.floor(Math.random() * 10);
-    clutter += `<div class="numbers-button">${x}</div>`;
-  }
-  document.querySelector('#panel-bottom').innerHTML = clutter;
-}
-
-function updateScore()
-{
-  document.querySelector('#score-box').textContent = score;
+// Function to update score
+function updateScore() {
   score += 10;
+  scoreBox.textContent = score;
 }
 
-function eventBubbling() 
-{
-  document.querySelector('#panel-bottom').addEventListener("click", function(event) {
-    if (!gameStarted) 
-    {
-      return; 
+// Event handling for bubble click
+function eventBubbling() {
+  panelBottom.addEventListener("click", function(event) {
+    if (!gameStarted) {
+      return; // Game not started, ignore clicks
     }
-    if (event.target.classList.contains('numbers-button')) 
-    {
-      eventNumber = Number(event.target.textContent);
-      document.querySelector('#your-hit-box').textContent = eventNumber;
-      if(eventNumber === hitNumber)
-      {
+    if (event.target.classList.contains('numbers-button')) {
+      const eventNumber = Number(event.target.textContent);
+      yourHitBox.textContent = eventNumber;
+      if (eventNumber === hitNumber) {
         generateRandomHit();
         updateScore();
         numberBubbles();
       }
-      lastHit = eventNumber; 
-    } 
-    else 
-    {
-      document.querySelector('#your-hit-box').textContent = lastHit;
+      lastHit = eventNumber; // Store last hit number
+    } else {
+      yourHitBox.textContent = lastHit; // Restore last hit number on non-bubble click
     }
   });
 }
 
-function startGame() 
-{
-  document.getElementById('start').addEventListener("click", () => {
-    if (!gameStarted) 
-    {
-        gameStarted = true;
-        timerFunction();
-        generateRandomHit();
-        updateScore();
-        eventBubbling();
-    }
-  });
-}
+// Event listener for window resize to adjust bubbles
+window.addEventListener('resize', numberBubbles);
 
-function resetGame() 
-{
-  clearInterval(timer); 
-  time = 60; 
-  score = 0;
-  eventNumber = null;
-  lastHit = null;
-  gameStarted = false;
-  document.querySelector('#timer-box').textContent = time;
-  document.querySelector('#your-hit-box').textContent = '';
-  document.querySelector('#score-box').textContent = score;
-  document.querySelector('#panel-bottom').removeEventListener("click", eventBubbling);
-}
-
-closeBtn.addEventListener("click", function() {
-  var modal = document.getElementById("modal");
+// Event listener for modal close button
+closeButton.addEventListener("click", function() {
   modal.style.display = "none";
 });
 
+// Initialize the game
 numberBubbles();
 startGame();
 
-document.getElementById('reset').addEventListener("click", resetGame);
+// Event listeners for start and reset buttons
+startButton.addEventListener("click", startGame);
+resetButton.addEventListener("click", resetGame);

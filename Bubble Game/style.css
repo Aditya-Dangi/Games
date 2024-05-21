@@ -1,172 +1,171 @@
-body,html
-{
+body, html {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background: url(Images/4w8jxyi56if41.jpg);
+  background-image: url("Images/4w8jxyi56if41.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
+  font-family: Arial, sans-serif;
 }
 
-.buttons
-{
+.buttons {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1em;
 }
 
-#start
-{
-  margin-top: 1em;
-  font-size: 3em;
-  height: 80px;
-  width: 200px;
+button {
+  font-size: 3rem;
   text-transform: uppercase;
   font-weight: 700;
-  margin-right: 100px;
-  border: 5px double blue;
-  color: blue;
+  border: 0.25rem double;
   background-color: white;
-  box-shadow: 10px -10px 5px 0px blue;
-  transition: .3s all;
+  transition: 0.3s all;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
-#start:hover
-{
+
+#start {
+  margin-right: 2rem;
+  border-color: blue;
+  color: blue;
+  box-shadow: 0.625rem -0.625rem 0.3125rem 0px blue;
+}
+
+#start:hover {
   background-color: blue;
   color: white;
   cursor: pointer;
-  border: 5px double white;
-  box-shadow: -10px 10px 5px 0px blue;
+  border-color: white;
+  box-shadow: -0.625rem 0.625rem 0.3125rem 0px blue;
 }
-#start:active
-{
+
+#start:active {
   transition: 0s;
-  transform: scale(.8);
-  box-shadow: 0px 0px 10px 10px blue;
+  transform: scale(0.8);
+  box-shadow: 0px 0px 0.625rem 0.625rem blue;
   color: blue;
   background-color: white;
 }
-#reset
-{
-  margin-top: 1em;
-  font-size: 3em;
-  height: 80px;
-  width: 200px;
-  text-transform: uppercase;
-  font-weight: 700;
-  border: 5px double red;
+
+#reset {
+  border-color: red;
   color: red;
-  background-color: white;
-  box-shadow: -10px -10px 5px 0px red;
-  transition: .3s all;
+  box-shadow: -0.625rem -0.625rem 0.3125rem 0px red;
 }
-#reset:hover
-{  
+
+#reset:hover {
   background-color: red;
   color: white;
   cursor: pointer;
-  border: 5px double white;
-  box-shadow: 10px 10px 5px 0px red;
+  border-color: white;
+  box-shadow: 0.625rem 0.625rem 0.3125rem 0px red;
 }
-#reset:active
-{
+
+#reset:active {
   transition: 0s;
   transform: scale(1.2);
-  box-shadow: 0px 0px 10px 10px red;
+  box-shadow: 0px 0px 0.625rem 0.625rem red;
   color: red;
   background-color: white;
 }
-#main
-{
+
+#main {
   width: 100%;
-  height: 95%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0;
 }
-#panel
-{
+
+#panel {
   width: 80%;
   height: 80%;
   background-color: white;
   border-radius: 2em;
   overflow: hidden;
-  border: .5em solid rgb(0, 0, 0);
+  border: 0.5em solid rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
 }
-#panel-top
-{
+
+#panel-top {
   width: 100%;
-  height: 10%;
-  /*background: linear-gradient(gray, black);*/
+  height: 20%;
   background-color: burlywood;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.elements
-{
+
+.elements {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 25%;
+  flex: 1;
+  padding: 0.5rem;
 }
-.elements h1
-{
+
+.elements h1 {
   color: white;
-  margin-right: 15px;
-  font-size: 2.93em;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+  text-align: center;
 }
-.element-box
-{
-  height: 60px;
-  width: 60px;
+
+.element-box {
+  height: 4rem;
+  width: 4rem;
   background-color: white;
-  font-size: 2.5em;
+  font-size: 2.2rem;
   font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#panel-bottom
-{
+
+#panel-bottom {
   width: 100%;
   background-color: lightcyan;
-  height: 90%;
+  height: 80%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: center;
+  overflow: hidden;
 }
-.numbers-button
-{
-  width: 4%;
-  height: 9%;
+
+.numbers-button {
+  width: 3em;
+  height: 3em;
   border-radius: 50%;
-  border: 2px solid black;
+  border: 0.125rem solid black;
   background-color: rgb(39, 21, 0);
   color: white;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 2em;
-  margin: 13px;
+  font-size: 1.5vw;
+  margin: 0.3rem;
+  transition: 0.2s all;
+  box-sizing: border-box;
 }
-.numbers-button:hover
-{
+
+.numbers-button:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: 0.8;
 }
-.numbers-button:active
-{
-  opacity: .5;
-  transform: scale(.9);
+
+.numbers-button:active {
+  opacity: 0.5;
+  transform: scale(0.9);
 }
-.modal 
-{
+
+.modal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -176,35 +175,93 @@ body,html
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
-
 }
 
-.modal-content 
-{
+.modal-content {
   background-color: #fefefe;
   margin: 15% auto;
-  padding: 20px;
+  padding: 1rem;
   border: 1px solid #888;
-  width: 50%;
+  width: 80%;
+  max-width: 600px;
   text-align: center;
-  font-size: 3em;
+  font-size: 1.5rem;
   font-weight: 900;
   background-color: beige;
-  border: 15px double black;
+  border: 0.75rem double black;
 }
 
-.close 
-{
+.close {
   color: #aaa;
   float: right;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .close:hover,
-.close:focus 
-{
+.close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media (min-width: 1440px){
+  .elements h1{
+    font-size: 3em;
+  }
+}
+
+@media (max-width: 768px){
+  .numbers-button {
+    width: 2.1em;
+    height: 2.1em;
+    font-size: 3vw;
+  }
+  .element-box {
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  #start, #reset {
+    font-size: 2em;
+    height: 3rem;
+    width: 10rem;
+    margin: 1rem;
+  }
+
+  .elements {
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .elements h1 {
+    font-size: 1em;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .element-box {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .numbers-button {
+    width: 2.7em;
+    height: 2.7em;
+    font-size: 3vw;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
 }

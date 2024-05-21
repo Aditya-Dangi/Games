@@ -1,102 +1,163 @@
-body
-{
-  padding: 0px;
-  margin: 0px;
+body {
+  padding: 0;
+  margin: 0;
   background-color: black;
   color: rgb(216, 214, 214);
-  font-size: 40px;
+  font-size: 16px; /* Base font size */
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 5%;
 }
-button
-{
-  margin-right: 30px;
+
+button {
+  margin-right: 10px;
   background-color: white;
   cursor: pointer;
   transition: .5s all;
   border-radius: 50%;
-  height: 250px;
-  width: 250px;
+  height: 180px; /* Increased button size */
+  width: 180px; /* Increased button size */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em; /* Increased font size for buttons */
 }
-button:hover
-{
+
+button img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+button:hover {
   background-color: rgb(255, 255, 255);
   opacity: .7;
 }
-button:active
-{
+
+button:active {
   opacity: .3;
   transition: 0s;
 }
-.game
-{
+
+.game {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.game-2
-{
+
+.game-2 {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Increased gap between buttons */
 }
-.reset-button
-{
+
+.reset-button {
   border-radius: 10px;
-  height: 50px;
-  width: 120px;
-  font-size: 30px;
+  height: 60px; /* Increased reset button size */
+  width: 140px; /* Increased reset button size */
+  font-size: 1.2em; /* Increased font size for reset button */
   transition: .5s all;
-  font-family:fantasy;
-  font-size: 100%;
+  font-family: fantasy;
 }
-.reset-button:hover
-{
+
+.reset-button:hover {
   background-color: red;
   color: white;
 }
-.reset-button:active 
-{
+
+.reset-button:active {
   background-color: red;
   color: white;
   transition: 0s;
   opacity: .4;
 }
-p
-{
-  margin-bottom: 0px;
+
+p {
+  margin-bottom: 10px; /* Increased margin bottom for paragraphs */
+  font-size: 1.5em; /* Increased font size for paragraphs */
 }
-.scoreupdate
-{
-  margin-bottom: 30px;
+
+.scoreupdate {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
-  font-size: .8em;
+  font-size: 1.5em; /* Adjusted font size for score update */
+  text-align: center;
 }
-.scoremove
-{
+
+.scoremove {
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  margin: 100px;
-  margin-bottom: 50px;
+  margin: 80px 0; /* Increased margin for score move */
+  font-size: 4em; /* Increased font size for score move */
 }
-.scoremove img
-{
+
+.scoremove img {
   background-color: white;
   object-fit: contain;
   object-position: center;
   border-radius: 50%;
-  margin: 0 70px;
-  height: 150px;
-  width: 150px;
+  margin: 0 50px; /* Increased margin for score move images */
+  height: 150px; /* Increased image size for score move */
+  width: 150px; /* Increased image size for score move */
 }
-.scoreresult
-{
+
+.scoreresult {
   font-weight: 700;
-  font-size: 1.3em;
+  font-size: 4em; /* Increased font size for score result */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  margin: 10px;
+  text-align: center;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .game-2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    height: 200px;
+    width: 200px;
+    margin-right: 0;
+    margin-bottom: 20px; /* Increased margin bottom for smaller screens */
+    font-size: 2em; /* Adjusted font size for smaller screens */
+  }
+
+  button img {
+    height: 100px; /* Adjusted image size for smaller screens */
+    width: 100px; /* Adjusted image size for smaller screens */
+  }
+
+  .scoremove {
+    margin: 40px 0; /* Increased margin for score move on smaller screens */
+    font-size: 1.2em; /* Adjusted font size for score move on smaller screens */
+  }
+
+  .scoremove img {
+    margin: 0 20px; /* Increased margin for score move images on smaller screens */
+    height: 80px; /* Adjusted image size for score move on smaller screens */
+    width: 80px; /* Adjusted image size for score move on smaller screens */
+  }
+
+  .reset-button {
+    height: 80px; /* Adjusted reset button size for smaller screens */
+    width: 150px; /* Adjusted reset button size for smaller screens */
+    font-size: 2em; /* Adjusted font size for reset button on smaller screens */
+  }
+
+  p {
+    font-size: 1.2em; /* Adjusted font size for paragraphs on smaller screens */
+    margin-bottom: 5px; /* Adjusted margin bottom for paragraphs on smaller screens */
+  }
+}
+@media (max-width: 320px) {
+  .scoremove{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }

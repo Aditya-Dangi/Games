@@ -1,190 +1,274 @@
 /* Importing Google font - Open Sans */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
 }
-body 
-{
+
+body {
     display: flex;
-    padding: 0 10px;
+    padding: 0 20px;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: url(images/halloween.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-color: #1A1A1A; /* Dark black background */
+    color: #FFFFFF; /* White text */
+    font-family: "Open Sans", sans-serif;
+    background-image: url("./images/engin-akyurt-BawjznQ3Q8U-unsplash.jpg");
 }
-.container 
-{
+
+.main-container {
     display: flex;
-    width: 60%;
-    height: 800px;
-    gap: 70px;
-    padding: 60px 40px;
-    background: #fff;
-    border-radius: 10px;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background-color: #262626; /* Darker black background */
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: rgb(190, 214, 223);
+    max-width: 100%; /* Ensure it doesn't overflow */
+    overflow-x: hidden; /* Hide overflow */
 }
-.hangman-box img 
-{
+
+.hangman-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hangman-container img {
     user-select: none;
-    width: 500px;
-    max-width: 550px;
+    width: 400px;
 }
-.game-box .word-display 
-{
-    gap: 1em;
+
+.hangman-container h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin-top: 20px;
+    color: black;
+    text-shadow: 4px 4px 4px rgb(70, 70, 70);
+}
+
+.game-container .word-container {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
+    gap: 15px;
     justify-content: center;
-    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Allow wrapping */
 }
-.word-display .letter 
-{
-    width: 1.2em;
-    font-size: 3em;
+
+.word-container .letter {
+    width: 30px;
+    font-size: 2.5rem;
     text-align: center;
     font-weight: 700;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    border-bottom: 3px solid #000;
+    border-bottom: 4px solid #000;
 }
-.word-display .letter.guessed 
-{
-    margin: -40px 0 35px;
+
+.word-container .letter.revealed {
     border-color: transparent;
 }
-.game-box h4 {
+
+.game-container h4 {
+    font-size: 1.5rem;
     text-align: center;
-    font-size: 1.8em;
-    font-weight: 500;
-    margin-bottom: 1em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
-.game-box h4 b {
-    font-weight: 600;
+
+.game-container h4 b {
+    font-weight: 700;
 }
-.game-box .guesses-text b {
-    color: #ff0000;
+
+.game-container .wrong-guesses b {
+    color: #FF3333;
 }
-.game-box .keyboard {
+
+.game-container .keyboard-container {
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
-    margin-top: 100px;
+    gap: 10px;
     justify-content: center;
 }
-:where(.panel, .keyboard) button {
-    color: #fff;
+
+.game-container .keyboard-container button {
+    width: 60px;
+    height: 60px;
+    color: #FFFFFF;
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: 1.5em;
-    font-weight: 600;
-    border-radius: 4px;
-    text-transform: uppercase;
-    background: black;
-    height: 3em;
+    font-size: 1.5rem;
+    background-color: #3A3D98;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.keyboard button {
-    padding: 7px;
-    width: calc(100% / 9 - 5px);
+
+.keyboard-container button:disabled {
+    background-color: #7A7DFF;
+    cursor: not-allowed;
 }
-.keyboard button[disabled] {
-    pointer-events: none;
-    opacity: 0.6;
+
+.keyboard-container button:hover:not(:disabled) {
+    background-color: #2E3070;
 }
-:where(.panel, .keyboard) button:hover {
-    opacity: .5;
+
+.keyboard-container button.clicked {
+    transform: scale(0.9);
 }
-.panel {
+
+.game-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    pointer-events: none;
-    background: rgba(0,0,0,0.6);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
-    padding: 0 10px;
-    transition: opacity 0.4s ease;
-}
-.panel.show {
-    opacity: 1;
-    pointer-events: auto;
-    transition: opacity 0.4s 0.4s ease;
-}
-.panel .content {
-    padding: 30px;
-    max-width: 420px;
-    width: 100%;
-    border-radius: 10px;
-    background: #fff;
-    text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-.panel img {
-    max-width: 130px;
-    margin-bottom: 20px;
-}
-.panel img[src="images/victory.gif"] {
-    margin-left: -10px;
-}
-.panel h4 {
-    font-size: 1.53em;
-}
-.panel p {
-    font-size: 1.15em;
-    margin: 15px 0 30px;
-    font-weight: 500;
-}
-.panel p b {
-    color: #5E63BA;
-    font-weight: 600;
-}
-.panel button {
-    padding: 12px 23px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    z-index: 10; /* Ensure it overlays other content */
 }
 
-@media (max-width: 782px) {
-    .container {
-        flex-direction: column;
+.game-overlay.visible {
+    display: flex;
+}
+
+.modal-content {
+    text-align: center;
+    padding: 50px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.modal-content h4 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.modal-content p b {
+    color: #3A3D98;
+    text-align: center;
+}
+
+.modal-content .restart-btn {
+    padding: 12px 25px;
+    color: #FFFFFF;
+    border: none;
+    background-color: #3A3D98;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.modal-content .restart-btn:hover {
+    background-color: #2E3070;
+}
+
+.modal-content .restart-btn:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .main-container {
         padding: 30px 15px;
-        align-items: center;
     }
-    .hangman-box img {
-        max-width: 200px;
+
+    .hangman-container img {
+        max-width: 300px;
     }
-    .game-box h4 {
-        font-size: 1em;
+
+    .hangman-container h1 {
+        font-size: 2rem;
     }
-    .word-display .letter {
-        margin-bottom: 35px;
-        font-size: 1.7em;
+
+    .word-container .letter {
+        width: 25px;
+        font-size: 2rem;
     }
-    .word-display .letter.guessed {
-        margin: -35px 0 25px;
-    }
-    .panel img {
+
+    .modal-content img {
         max-width: 120px;
     }
-    .panel h4 {
-        font-size: 1.45em;
+
+    .modal-content h4 {
+        font-size: 1.5rem;
     }
-    .panel p {
-        font-size: 1.1em;
+
+    .modal-content p {
+        font-size: 1rem;
     }
-    .panel button {
-        padding: 10px 18px;
+
+    .modal-content .restart-btn {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .main-container {
+        padding: 20px 10px;
+    }
+
+    .hangman-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .word-container .letter {
+        width: 20px;
+        font-size: 1.5rem;
+        margin: 5px; /* Add margin for spacing */
+    }
+
+    .keyboard-container button {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .game-container h4 {
+        font-size: 1.1rem;
+    }
+
+    .modal-content {
+        padding: 30px;
+    }
+
+    .modal-content img {
+        max-width: 100px;
+    }
+
+    .modal-content h4 {
+        font-size: 1.3rem;
+    }
+
+    .modal-content p {
+        font-size: 0.9rem;
+    }
+
+    .modal-content .restart-btn {
+        padding: 6px 12px;
+    }
+    .game-container .keyboard-container button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
     }
 }
