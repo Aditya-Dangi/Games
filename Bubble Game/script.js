@@ -1,4 +1,3 @@
-// Initialize game variables
 let time = 60;
 let score = 0;
 let hitNumber;
@@ -6,7 +5,6 @@ let lastHit;
 let gameStarted = false;
 let timer;
 
-// DOM elements
 const panelBottom = document.querySelector('#panel-bottom');
 const timerBox = document.querySelector('#timer-box');
 const hitBox = document.querySelector('#hit-box');
@@ -18,26 +16,20 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const closeButton = document.querySelector(".close");
 
-// Function to generate bubbles based on viewport width
 function numberBubbles() {
   const panelBottom = document.querySelector('#panel-bottom');
   const viewportWidth = window.innerWidth;
-
   let maxBubbles;
   
   if (viewportWidth > 2000) {
     maxBubbles = 128; 
-  } 
-  else if (viewportWidth >= 1440) {
+  } else if (viewportWidth >= 1440) {
     maxBubbles = 105; 
-  } 
-  else if (viewportWidth >= 1024) {
+  } else if (viewportWidth >= 1024) {
     maxBubbles = 126; 
-  } 
-  else if (viewportWidth >= 768) {
+  } else if (viewportWidth >= 768) {
     maxBubbles = 100; 
-  } 
-  else {
+  } else {
     maxBubbles = 84; 
   }
 
@@ -49,8 +41,6 @@ function numberBubbles() {
   panelBottom.innerHTML = clutter;
 }
 
-
-// Function to start the game
 function startGame() {
   startButton.addEventListener("click", () => {
     if (!gameStarted) {
@@ -63,7 +53,6 @@ function startGame() {
   });
 }
 
-// Function to reset the game
 function resetGame() {
   clearInterval(timer); 
   time = 60; 
@@ -74,12 +63,11 @@ function resetGame() {
   timerBox.textContent = time;
   yourHitBox.textContent = '';
   scoreBox.textContent = score;
-  panelBottom.innerHTML = ''; // Clear existing bubbles
+  panelBottom.innerHTML = '';
   panelBottom.removeEventListener("click", eventBubbling);
-  numberBubbles(); // Regenerate bubbles after reset
+  numberBubbles();
 }
 
-// Timer function
 function timerFunction() {
   timer = setInterval(() => {
     if (time > 0) {
@@ -94,23 +82,20 @@ function timerFunction() {
   }, 1000);
 }
 
-// Function to generate random hit number
 function generateRandomHit() {
   hitNumber = Math.floor(Math.random() * 10);
   hitBox.textContent = hitNumber;
 }
 
-// Function to update score
 function updateScore() {
   score += 10;
   scoreBox.textContent = score;
 }
 
-// Event handling for bubble click
 function eventBubbling() {
   panelBottom.addEventListener("click", function(event) {
     if (!gameStarted) {
-      return; // Game not started, ignore clicks
+      return;
     }
     if (event.target.classList.contains('numbers-button')) {
       const eventNumber = Number(event.target.textContent);
@@ -120,25 +105,21 @@ function eventBubbling() {
         updateScore();
         numberBubbles();
       }
-      lastHit = eventNumber; // Store last hit number
+      lastHit = eventNumber;
     } else {
-      yourHitBox.textContent = lastHit; // Restore last hit number on non-bubble click
+      yourHitBox.textContent = lastHit;
     }
   });
 }
 
-// Event listener for window resize to adjust bubbles
 window.addEventListener('resize', numberBubbles);
 
-// Event listener for modal close button
 closeButton.addEventListener("click", function() {
   modal.style.display = "none";
 });
 
-// Initialize the game
 numberBubbles();
 startGame();
 
-// Event listeners for start and reset buttons
 startButton.addEventListener("click", startGame);
 resetButton.addEventListener("click", resetGame);
