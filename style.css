@@ -33,7 +33,6 @@ img
   flex-wrap: nowrap;
   justify-content: start;
 }
-
 .card 
 {
   width: 80px;
@@ -59,6 +58,7 @@ img
 
 .card .row .icon 
 {
+  font-size: 1.5em;
   background: #223;
   color: white;
   border-radius: 50%;
@@ -67,6 +67,7 @@ img
   justify-content: center;
   align-items: center;
   margin: 15px;
+  font-weight: 900;
 }
 
 .card .row .description 
@@ -186,3 +187,49 @@ input:checked + label .description
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 768px) {
+  .container{
+    flex-direction: column;
+  }
+  .container{
+    flex-direction: column;
+    height: 200vh;
+    justify-content: space-between;
+  }
+  .card{
+    flex-direction: column;
+    width: 100px;
+    height: 400px;
+    transition: .6s cubic-bezier(.28,-0.03,0,.99);
+  }
+  .wrapper{
+    height: 220vh;
+  }
+  .play-button button{
+    border-radius: 31px;
+  }
+  input:checked + label {
+    width: 300px;
+  }
+  .card .row .description {
+    width: 100px;
+    height: 120px;
+  }
+  .icon{
+    height: 50px;
+  }
+  .row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .play-button button
+  {
+    width: 90px;
+    height: 80px;
+    font-size: 1.5em;
+    margin-left: 25px;
+  }
+}
+

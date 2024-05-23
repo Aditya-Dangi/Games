@@ -30,7 +30,7 @@ function numberBubbles() {
   } else if (viewportWidth >= 768) {
     maxBubbles = 100; 
   } else {
-    maxBubbles = 84; 
+    maxBubbles = 70; 
   }
 
   let clutter = "";
