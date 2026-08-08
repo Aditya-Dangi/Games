@@ -1,0 +1,64 @@
+<app-game-page-header
+  title="Sudoku"
+  subtitle="Fill every row, column and 3x3 box with 1-9 — no repeats."
+  accentVar="--accent-sudoku"
+/>
+
+<section class="container game">
+  <div class="toolbar">
+    <div class="difficulty-group" role="group" aria-label="Difficulty">
+      @for (level of difficulties; track level) {
+        <button
+          type="button"
+          class="chip"
+          [class.active]="store.difficulty() === level"
+          (click)="store.newPuzzle(level)"
+        >
+          {{ level }}
+        </button>
+      }
+    </div>
+    <div class="stats">
+      <span class="timer">⏱ {{ formatTime(store.elapsedSeconds()) }}</span>
+      <button type="button" class="btn btn-ghost" (click)="store.reset()">Reset</button>
+      <button type="button" class="btn btn-primary" (click)="store.newPuzzle()">New Puzzle</button>
+    </div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="board" [class.complete]="store.isComplete()">
+      @for (rowArr of store.board(); track $index; let row = $index) {
+        @for (cell of rowArr; track $index; let col = $index) {
+          <app-sudoku-cell
+            [cell]="cell"
+            [row]="row"
+            [col]="col"
+            [selected]="isSelected(row, col)"
+            [peer]="isPeer(row, col)"
+            [invalid]="isInvalid(row, col)"
+            (cellClick)="store.selectCell(row, col)"
+          />
+        }
+      }
+    </div>
+
+    @if (store.isComplete()) {
+      <div class="complete-banner">
+        <p>🎉 Solved in {{ formatTime(store.elapsedSeconds()) }}</p>
+        <button type="button" class="btn btn-primary" (click)="store.newPuzzle()">Play Again</button>
+      </div>
+    }
+  </div>
+
+  <div class="numpad" role="group" aria-label="Number input">
+    @for (n of numpad; track n) {
+      <button type="button" (click)="store.setValue(n)">{{ n }}</button>
+    }
+    <button type="button" class="clear" (click)="store.setValue(null)" aria-label="Clear cell">✕</button>
+  </div>
+
+  <p class="instructions">
+    Tap a cell, then choose a number below (or use your keyboard). Cells that conflict with the
+    Sudoku rules are highlighted in red until you fix them.
+  </p>
+</section>

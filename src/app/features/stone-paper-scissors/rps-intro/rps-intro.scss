@@ -1,0 +1,26 @@
+.intro {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-5);
+}
+
+.intro-icon {
+  width: 96px;
+  height: 96px;
+  color: var(--accent-rps);
+}
+
+.lede {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  max-width: 420px;
+}
+
+.start-btn {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,12 @@
+<button
+  type="button"
+  class="card"
+  [class.flipped]="card().flipped || card().matched"
+  [class.matched]="card().matched"
+  [disabled]="card().matched"
+  (click)="cardClick.emit()"
+  [attr.aria-label]="card().flipped || card().matched ? card().symbol : 'Hidden card'"
+>
+  <span class="face front">?</span>
+  <span class="face back">{{ card().symbol }}</span>
+</button>

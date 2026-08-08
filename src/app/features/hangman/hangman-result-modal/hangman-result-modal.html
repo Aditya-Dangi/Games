@@ -1,0 +1,14 @@
+<div class="overlay" role="dialog" aria-modal="true" aria-label="Game result">
+  <div class="modal">
+    <img
+      [src]="isVictory() ? 'images/hangman/victory.gif' : 'images/hangman/lost.gif'"
+      alt=""
+    />
+    <h2>{{ isVictory() ? 'Congratulations!' : 'Game Over!' }}</h2>
+    <p>
+      {{ isVictory() ? 'You found the word:' : 'The correct word was:' }}
+      <b>{{ word() }}</b>
+    </p>
+    <button type="button" class="btn btn-primary" (click)="playAgain.emit()">Play Again</button>
+  </div>
+</div>

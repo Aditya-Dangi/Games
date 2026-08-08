@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="cell"
+  [class.given]="cell().given"
+  [class.selected]="selected()"
+  [class.peer]="peer() && !selected()"
+  [class.invalid]="invalid()"
+  [class.border-right]="col() === 2 || col() === 5"
+  [class.border-bottom]="row() === 2 || row() === 5"
+  (click)="cellClick.emit()"
+>
+  {{ cell().value ?? '' }}
+</button>
