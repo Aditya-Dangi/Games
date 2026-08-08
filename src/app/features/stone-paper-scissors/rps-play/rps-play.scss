@@ -1,0 +1,124 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--space-8);
+}
+
+.moves {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+.move-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: transform var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+
+  svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    border-color: var(--accent-rps);
+    color: var(--accent-rps);
+    box-shadow: var(--shadow-glow);
+  }
+
+  &:active {
+    transform: scale(0.93);
+  }
+}
+
+.round-result {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.round-move {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+
+  b {
+    color: var(--color-text);
+  }
+
+  .vs {
+    display: inline-block;
+    margin: 0 var(--space-2);
+    color: var(--color-text-faint);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+}
+
+.round-outcome {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  &.win {
+    color: var(--color-success);
+  }
+
+  &.lose {
+    color: var(--color-danger);
+  }
+
+  &.tie {
+    color: var(--color-amber);
+  }
+}
+
+.hint-text {
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-6);
+}
+
+.scoreboard {
+  display: flex;
+  gap: var(--space-5);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  margin-bottom: var(--space-5);
+}
+
+.reset-btn {
+  padding-inline: var(--space-5);
+}
+
+@media (max-width: 480px) {
+  .move-btn {
+    width: 108px;
+    height: 108px;
+
+    svg {
+      width: 34px;
+      height: 34px;
+    }
+  }
+
+  .scoreboard {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+}

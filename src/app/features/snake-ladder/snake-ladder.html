@@ -1,0 +1,72 @@
+<app-game-page-header
+  title="Snake & Ladder"
+  subtitle="Roll the dice, climb the ladders, dodge the snakes — first to 100 wins."
+  accentVar="--accent-snake"
+/>
+
+<section class="container game">
+  <div class="layout">
+    <div class="board-panel">
+      <div class="board">
+        @for (cell of cells; track cell.number) {
+          <div
+            class="cell"
+            [style.grid-row]="cell.row"
+            [style.grid-column]="cell.col"
+            [class.ladder]="cell.isLadderStart"
+            [class.snake]="cell.isSnakeHead"
+          >
+            {{ cell.number }}
+          </div>
+        }
+
+        <svg class="connectors" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          @for (line of connectors; track $index) {
+            <line
+              [attr.x1]="line.from.left"
+              [attr.y1]="line.from.top"
+              [attr.x2]="line.to.left"
+              [attr.y2]="line.to.top"
+              [class]="line.type"
+            />
+          }
+        </svg>
+
+        <div class="token player-1" [style.left]="tokenStyle(1).left" [style.top]="tokenStyle(1).top" aria-hidden="true"></div>
+        <div class="token player-2" [style.left]="tokenStyle(2).left" [style.top]="tokenStyle(2).top" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="turn-indicator" [class.your-turn]="store.currentPlayer() === 1">
+        <span class="dot player-1"></span> You: square {{ store.positions()[1] }}
+      </div>
+      <div class="turn-indicator" [class.your-turn]="store.currentPlayer() === 2">
+        <span class="dot player-2"></span> Computer: square {{ store.positions()[2] }}
+      </div>
+
+      <div class="dice" [class.rolling]="store.rolling()">
+        <div class="pip-grid">
+          @for (slot of pipSlots; track slot) {
+            <span class="pip" [class.on]="activePips(store.diceValue()).includes(slot)"></span>
+          }
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary roll-btn" [disabled]="!store.canRoll()" (click)="store.rollForPlayer()">
+        {{ store.currentPlayer() === 1 && store.status() === 'playing' ? 'Roll Dice' : 'Computer turn…' }}
+      </button>
+
+      <p class="message">{{ store.message() }}</p>
+
+      @if (store.status() === 'finished') {
+        <div class="result-banner">
+          <p>{{ store.winner() === 1 ? '🏆 You won!' : '🤖 Computer wins.' }}</p>
+          <button type="button" class="btn btn-ghost" (click)="store.restart()">Play Again</button>
+        </div>
+      } @else {
+        <button type="button" class="btn btn-ghost restart-btn" (click)="store.restart()">Restart</button>
+      }
+    </aside>
+  </div>
+</section>

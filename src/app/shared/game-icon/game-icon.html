@@ -1,0 +1,59 @@
+<svg class="game-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  @switch (id()) {
+    @case ('hangman') {
+      <path d="M12 56h28M18 56V8h24M42 8v8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="42" cy="22" r="5" class="fill-accent" />
+      <path d="M42 27v11M42 31l-5 5M42 31l5 5M42 38l-4 6M42 38l4 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <rect x="10" y="47" width="8" height="6" rx="1.5" class="fill-muted" />
+      <rect x="20" y="47" width="8" height="6" rx="1.5" class="fill-muted" />
+      <rect x="30" y="47" width="8" height="6" rx="1.5" class="fill-muted" />
+    }
+    @case ('bubble-game') {
+      <circle cx="22" cy="24" r="12" class="fill-soft" stroke="currentColor" stroke-width="2" />
+      <circle cx="42" cy="18" r="8" class="fill-soft" stroke="currentColor" stroke-width="2" />
+      <circle cx="45" cy="38" r="13" class="fill-accent" stroke="currentColor" stroke-width="2" />
+      <text x="45" y="43" text-anchor="middle" class="icon-text">7</text>
+      <circle cx="18" cy="46" r="6" class="fill-soft" stroke="currentColor" stroke-width="2" />
+    }
+    @case ('rps') {
+      <circle cx="20" cy="20" r="11" class="fill-soft" stroke="currentColor" stroke-width="2.5" />
+      <path d="M14 20a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <rect x="33" y="10" width="20" height="16" rx="6" class="fill-accent" stroke="currentColor" stroke-width="2.5" />
+      <path d="M37 14v8M42 14v8M47 14v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <path d="M18 38l10 10M28 38l-10 10" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+      <circle cx="17" cy="37" r="3.5" class="fill-soft" stroke="currentColor" stroke-width="2" />
+      <circle cx="29" cy="37" r="3.5" class="fill-soft" stroke="currentColor" stroke-width="2" />
+      <path d="M40 34v18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+    }
+    @case ('sudoku') {
+      <rect x="8" y="8" width="48" height="48" rx="4" stroke="currentColor" stroke-width="3" />
+      <path d="M24 8v48M40 8v48M8 24h48M8 40h48" stroke="currentColor" stroke-width="1.6" opacity="0.55" />
+      <rect x="24" y="8" width="16" height="16" class="fill-accent" opacity="0.35" />
+      <text x="15" y="20" class="icon-text small">5</text>
+      <text x="31" y="36" class="icon-text small">1</text>
+      <text x="47" y="52" class="icon-text small">9</text>
+      <text x="15" y="52" class="icon-text small">3</text>
+    }
+    @case ('memory-matcher') {
+      <rect x="8" y="16" width="20" height="28" rx="4" class="fill-muted" stroke="currentColor" stroke-width="2.5" transform="rotate(-8 18 30)" />
+      <rect x="34" y="14" width="22" height="30" rx="4" class="fill-accent" stroke="currentColor" stroke-width="2.5" transform="rotate(6 45 29)" />
+      <path
+        d="M45 22l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"
+        class="fill-base"
+      />
+    }
+    @case ('snake-ladder') {
+      <rect x="8" y="8" width="48" height="48" rx="4" stroke="currentColor" stroke-width="3" />
+      <path d="M20 8v48M32 8v48M44 8v48M8 20h48M8 32h48M8 44h48" stroke="currentColor" stroke-width="1.2" opacity="0.4" />
+      <path d="M16 52c6-10-6-14 0-24s-6-14 4-20" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="stroke-accent" fill="none" />
+      <circle cx="20" cy="8" r="3.5" class="fill-accent" />
+      <path d="M46 52V16M52 52V16M46 22h6M46 32h6M46 42h6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    }
+    @case ('tic-tac-toe') {
+      <path d="M24 10v44M40 10v44M10 24h44M10 40h44" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <path d="M15 15l9 9M24 15l-9 9" class="stroke-accent" stroke-width="3.4" stroke-linecap="round" />
+      <circle cx="46" cy="19" r="6.5" class="stroke-accent" stroke-width="3.4" fill="none" />
+      <path d="M15 46l9 9M24 46l-9 9" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" />
+    }
+  }
+</svg>

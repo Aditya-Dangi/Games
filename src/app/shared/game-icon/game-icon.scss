@@ -1,0 +1,46 @@
+:host {
+  display: inline-flex;
+  color: var(--color-text);
+}
+
+.game-icon {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fill-accent {
+  fill: var(--accent, var(--color-primary));
+  stroke: var(--accent, var(--color-primary));
+}
+
+.stroke-accent {
+  stroke: var(--accent, var(--color-primary));
+}
+
+.fill-soft {
+  fill: color-mix(in srgb, var(--accent, var(--color-primary)) 22%, transparent);
+}
+
+.fill-muted {
+  fill: var(--color-surface-alt);
+}
+
+.fill-base {
+  fill: var(--color-bg-elevated);
+}
+
+.icon-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  fill: currentColor;
+
+  &.small {
+    font-size: 8px;
+    opacity: 0.75;
+  }
+}
+
+text.icon-text:not(.small) {
+  font-size: 11px;
+}

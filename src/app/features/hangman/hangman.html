@@ -1,0 +1,43 @@
+<app-game-page-header
+  title="Hangman"
+  subtitle="Don't let the hangman be hanged — guess the word one letter at a time."
+  accentVar="--accent-hangman"
+/>
+
+<section class="container game">
+  <div class="stage">
+    <img
+      class="hangman-figure"
+      [src]="'images/hangman/hangman-' + store.wrongGuessCount() + '.svg'"
+      draggable="false"
+      alt="Hangman drawing, {{ store.wrongGuessCount() }} of {{ maxWrongGuesses }} wrong guesses"
+    />
+  </div>
+
+  <ul class="word" aria-label="Word to guess">
+    @for (letter of store.letters(); track $index) {
+      <li class="letter" [class.revealed]="letter.revealed">
+        {{ letter.revealed ? letter.char.toUpperCase() : '' }}
+      </li>
+    }
+  </ul>
+
+  <p class="hint">Hint: <b>{{ store.hint() }}</b></p>
+  <p class="wrong-guesses">
+    Incorrect guesses: <b>{{ store.wrongGuessCount() }} / {{ maxWrongGuesses }}</b>
+  </p>
+
+  <app-hangman-keyboard
+    [guessedLetters]="store.guessedLetters()"
+    [disabled]="store.isGameOver()"
+    (letterSelected)="store.guessLetter($event)"
+  />
+</section>
+
+@if (store.isGameOver()) {
+  <app-hangman-result-modal
+    [isVictory]="store.isVictory()"
+    [word]="store.currentWord()"
+    (playAgain)="store.newGame()"
+  />
+}

@@ -1,0 +1,12 @@
+<div class="keyboard" role="group" aria-label="Letter keyboard">
+  @for (letter of alphabet; track letter) {
+    <button
+      type="button"
+      [class.guessed]="guessedLetters().has(letter)"
+      [disabled]="disabled() || guessedLetters().has(letter)"
+      (click)="letterSelected.emit(letter)"
+    >
+      {{ letter }}
+    </button>
+  }
+</div>

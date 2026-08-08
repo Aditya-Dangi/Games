@@ -1,0 +1,12 @@
+<div class="page-header" [style.--accent]="'var(' + accentVar() + ')'">
+  <a routerLink="/" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    All games
+  </a>
+  <h1>{{ title() }}</h1>
+  @if (subtitle()) {
+    <p class="subtitle">{{ subtitle() }}</p>
+  }
+</div>

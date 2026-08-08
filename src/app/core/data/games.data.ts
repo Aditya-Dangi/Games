@@ -1,0 +1,96 @@
+import { Game } from '../models/game.model';
+
+export const GAMES: Game[] = [
+  {
+    id: 'sudoku',
+    title: 'Sudoku',
+    tagline: 'Fill the grid, trust the logic.',
+    description:
+      'The classic 9x9 number-placement puzzle. Fill every row, column and 3x3 box with 1 through 9 — no repeats, no guessing needed.',
+    route: '/sudoku',
+    icon: 'sudoku',
+    category: 'logic',
+    accentVar: '--accent-sudoku',
+    difficulty: 3,
+    playTime: '10-20 min',
+    featured: true,
+  },
+  {
+    id: 'hangman',
+    title: 'Hangman',
+    tagline: 'Guess the word before the drawing finishes.',
+    description:
+      "Don't let the hangman be hanged — reveal a hidden word one letter at a time using the hint, before you run out of guesses.",
+    route: '/hangman',
+    icon: 'hangman',
+    category: 'word',
+    accentVar: '--accent-hangman',
+    difficulty: 2,
+    playTime: '2-5 min',
+  },
+  {
+    id: 'bubble-game',
+    title: 'Bubble Game',
+    tagline: 'Is your reaction time fast enough?',
+    description:
+      'Race the clock — tap the bubble matching the target number as many times as you can before the timer runs out. Gets faster as you go.',
+    route: '/bubble-game',
+    icon: 'bubble-game',
+    category: 'reflex',
+    accentVar: '--accent-bubble',
+    difficulty: 2,
+    playTime: '1 min',
+  },
+  {
+    id: 'memory-matcher',
+    title: 'Memory Matcher',
+    tagline: 'Flip, remember, match.',
+    description:
+      'Flip two cards at a time and find every matching pair in as few moves as possible. Simple rules, surprisingly hard to master.',
+    route: '/memory-matcher',
+    icon: 'memory-matcher',
+    category: 'memory',
+    accentVar: '--accent-memory',
+    difficulty: 1,
+    playTime: '2-5 min',
+  },
+  {
+    id: 'stone-paper-scissors',
+    title: 'Stone Paper Scissors',
+    tagline: 'Challenge the computer.',
+    description:
+      'The timeless hand-game showdown. Pick your move and see if you can out-guess the computer round after round.',
+    route: '/stone-paper-scissors',
+    icon: 'rps',
+    category: 'strategy',
+    accentVar: '--accent-rps',
+    difficulty: 1,
+    playTime: '1-3 min',
+  },
+  {
+    id: 'tic-tac-toe',
+    title: 'Tic-Tac-Toe',
+    tagline: 'Three in a row wins it.',
+    description:
+      'The classic grid duel against the computer. Line up three X or O marks — horizontally, vertically or diagonally — before your opponent does.',
+    route: '/tic-tac-toe',
+    icon: 'tic-tac-toe',
+    category: 'strategy',
+    accentVar: '--accent-ttt',
+    difficulty: 2,
+    playTime: '1-2 min',
+  },
+  {
+    id: 'snake-ladder',
+    title: 'Snake & Ladder',
+    tagline: 'Climb the ladders, dodge the snakes.',
+    description:
+      'Roll the dice and race to square 100. Land on a ladder and climb fast, land on a snake and slide right back down.',
+    route: '/snake-ladder',
+    icon: 'snake-ladder',
+    category: 'board',
+    accentVar: '--accent-snake',
+    difficulty: 1,
+    playTime: '5-10 min',
+  },
+];
