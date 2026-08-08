@@ -1,0 +1,51 @@
+<app-game-page-header title="Stone Paper Scissors" subtitle="Pick your move." accentVar="--accent-rps" />
+
+<section class="container game">
+  <div class="moves">
+    @for (move of moves; track move) {
+      <button type="button" class="move-btn" [class]="move.toLowerCase()" (click)="store.play(move)">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          @switch (move) {
+            @case ('Stone') {
+              <circle cx="24" cy="26" r="15" fill="none" stroke="currentColor" stroke-width="3" />
+              <path d="M15 26a9 9 0 0 1 18 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+            }
+            @case ('Paper') {
+              <rect x="10" y="8" width="28" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="3" />
+              <path d="M16 16v16M22 16v16M28 16v16M34 18v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+            }
+            @case ('Scissors') {
+              <circle cx="15" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+              <circle cx="30" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+              <path d="M18 31L38 10M33 31L13 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+            }
+          }
+        </svg>
+        <span>{{ move }}</span>
+      </button>
+    }
+  </div>
+
+  @if (store.result(); as result) {
+    <div class="round-result">
+      <p class="round-move">
+        You played <b>{{ store.playerMove() }}</b>
+        <span class="vs">vs</span>
+        Computer played <b>{{ store.computerMove() }}</b>
+      </p>
+      <p class="round-outcome" [class]="result.toLowerCase()">
+        {{ result === 'Win' ? 'You Win' : result === 'Lose' ? 'You Lose' : 'Tie' }}
+      </p>
+    </div>
+  } @else {
+    <p class="hint-text">Choose Stone, Paper or Scissors to play your first round.</p>
+  }
+
+  <div class="scoreboard">
+    <span>Wins: {{ store.score().wins }}</span>
+    <span>Losses: {{ store.score().losses }}</span>
+    <span>Ties: {{ store.score().ties }}</span>
+  </div>
+
+  <button type="button" class="btn btn-ghost reset-btn" (click)="store.resetScore()">Reset Score</button>
+</section>

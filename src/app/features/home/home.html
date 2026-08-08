@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Games 4 Fun · {{ games.length }} games, zero installs</p>
+      <h1>Pick a game. Play in seconds.</h1>
+      <p class="lede">
+        A small hub of proper mini-games — a logic puzzle, a word game, a reflex
+        test, a memory challenge and a couple of classic duels against the
+        computer. No downloads, no sign-up, just play.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" [routerLink]="featuredGame.route">Play {{ featuredGame.title }}</a>
+        <a class="btn btn-ghost" href="#game-grid">Browse all games</a>
+      </div>
+    </div>
+
+    <a class="featured-card" [routerLink]="featuredGame.route" [style.--accent]="'var(' + featuredGame.accentVar + ')'">
+      <span class="badge featured-badge">Featured</span>
+      <div class="featured-icon">
+        <app-game-icon [id]="featuredGame.icon" />
+      </div>
+      <h2>{{ featuredGame.title }}</h2>
+      <p>{{ featuredGame.tagline }}</p>
+      <span class="cta">Play now →</span>
+    </a>
+  </div>
+</section>
+
+<section class="catalog container" id="game-grid">
+  <div class="catalog-header">
+    <h2>All games</h2>
+    <div class="filters" role="group" aria-label="Filter games by category">
+      @for (category of categories; track category) {
+        <button
+          type="button"
+          class="chip"
+          [class.active]="activeCategory() === category"
+          (click)="setCategory(category)"
+        >
+          {{ category === 'all' ? 'All' : categoryLabels[category] }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (filteredGames().length) {
+    <div class="grid">
+      @for (game of filteredGames(); track game.id) {
+        <app-game-card [game]="game" />
+      }
+    </div>
+  } @else {
+    <p class="empty-state">No games in this category yet — check back soon.</p>
+  }
+</section>

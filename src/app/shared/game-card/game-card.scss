@@ -1,0 +1,115 @@
+.card {
+  --accent: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-6px);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--color-border));
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:hover .cover-icon,
+  &:focus-visible .cover-icon {
+    transform: scale(1.08) rotate(-2deg);
+  }
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%),
+    var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cover-icon {
+  width: 88px;
+  height: 88px;
+  color: var(--accent);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.category-badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  flex: 1;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.tagline {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.meta-row {
+  margin-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.play-time {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-faint);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  svg {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+}
+
+.card:hover .cta svg,
+.card:focus-visible .cta svg {
+  transform: translateX(4px);
+}

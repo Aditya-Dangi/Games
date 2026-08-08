@@ -1,0 +1,51 @@
+<app-game-page-header
+  title="Bubble Game"
+  subtitle="Is your reaction time fast? Tap the bubble matching the target number."
+  accentVar="--accent-bubble"
+/>
+
+<section class="container game">
+  <div class="controls">
+    <button type="button" class="btn btn-primary" (click)="store.start()" [disabled]="store.isRunning()">
+      Start
+    </button>
+    <button type="button" class="btn btn-ghost" (click)="store.reset()">Reset</button>
+  </div>
+
+  <div class="panel">
+    <div class="stats">
+      <div class="stat">
+        <h2>Time</h2>
+        <div class="stat-box">{{ store.timeLeft() }}</div>
+      </div>
+      <div class="stat">
+        <h2>Target</h2>
+        <div class="stat-box">{{ store.targetNumber() }}</div>
+      </div>
+      <div class="stat">
+        <h2>Your Hit</h2>
+        <div class="stat-box">{{ store.lastHit() ?? '' }}</div>
+      </div>
+      <div class="stat">
+        <h2>Score</h2>
+        <div class="stat-box">{{ store.score() }}</div>
+      </div>
+    </div>
+
+    <div class="bubbles">
+      @for (value of store.bubbles(); track $index) {
+        <button type="button" class="bubble" (click)="store.selectBubble(value)">{{ value }}</button>
+      }
+    </div>
+  </div>
+</section>
+
+@if (store.isFinished()) {
+  <div class="overlay" role="dialog" aria-modal="true" aria-label="Final score">
+    <div class="modal">
+      <p class="score-label">Your score is</p>
+      <p class="score-value">{{ store.score() }}</p>
+      <button type="button" class="btn btn-primary" (click)="store.reset()">Play Again</button>
+    </div>
+  </div>
+}
