@@ -77,15 +77,71 @@
   border-radius: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid var(--color-bg-elevated);
-  transition: left 400ms var(--ease-out), top 400ms var(--ease-out);
+  transition: left var(--move-duration, 260ms) var(--move-ease, var(--ease-out)),
+    top var(--move-duration, 260ms) var(--move-ease, var(--ease-out));
   z-index: 2;
 
   &.player-1 {
     background: var(--color-primary-strong);
+    z-index: 3;
   }
 
   &.player-2 {
     background: var(--accent-snake);
+  }
+
+  &.climbing {
+    animation: token-climb var(--move-duration, 700ms) ease-in-out;
+    z-index: 4;
+  }
+
+  &.sliding {
+    animation: token-slide var(--move-duration, 550ms) ease-in;
+    z-index: 4;
+  }
+
+  &.bounce {
+    animation: token-bounce 260ms var(--ease-out);
+  }
+}
+
+@keyframes token-bounce {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes token-climb {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(-50%, -55%) translateX(-3px) rotate(-8deg) scale(1.05);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(0) rotate(0deg) scale(1.1);
+  }
+  75% {
+    transform: translate(-50%, -55%) translateX(3px) rotate(8deg) scale(1.05);
+  }
+}
+
+@keyframes token-slide {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(14deg) scale(0.85);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
 }
 
@@ -110,7 +166,7 @@
   border-radius: var(--radius-sm);
   transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
 
-  &.your-turn {
+  &.active-turn {
     background: color-mix(in srgb, var(--accent-snake) 16%, transparent);
     color: var(--color-text);
   }
@@ -209,5 +265,13 @@
 @media (prefers-reduced-motion: reduce) {
   .dice.rolling {
     animation: none;
+  }
+
+  .token {
+    &.climbing,
+    &.sliding,
+    &.bounce {
+      animation: none;
+    }
   }
 }

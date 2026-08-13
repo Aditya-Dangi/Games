@@ -1,10 +1,19 @@
 <app-game-page-header
   title="Hangman"
-  subtitle="Don't let the hangman be hanged — guess the word one letter at a time."
+  subtitle="Take turns guessing letters against the same word — guess right and go again, miss and pass the turn."
   accentVar="--accent-hangman"
 />
 
 <section class="container game">
+  <div class="turn-indicators">
+    <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 1">
+      <span class="dot p1"></span> Player 1 — {{ store.scores()[1] }}
+    </div>
+    <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 2">
+      <span class="dot p2"></span> Player 2 — {{ store.scores()[2] }}
+    </div>
+  </div>
+
   <div class="stage">
     <img
       class="hangman-figure"
@@ -38,6 +47,7 @@
   <app-hangman-result-modal
     [isVictory]="store.isVictory()"
     [word]="store.currentWord()"
+    [resultText]="resultText()"
     (playAgain)="store.newGame()"
   />
 }

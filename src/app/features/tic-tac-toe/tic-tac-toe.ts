@@ -15,10 +15,9 @@ export class TicTacToe {
 
   protected statusMessage(): string {
     if (this.store.status() === 'won') {
-      return this.store.winner() === 'X' ? 'You win! 🎉' : 'Computer wins.';
+      return this.store.winner() === 'X' ? 'Player 1 (X) wins! 🎉' : 'Player 2 (O) wins! 🎉';
     }
     if (this.store.status() === 'draw') return "It's a draw.";
-    if (this.store.computerThinking()) return 'Computer is thinking…';
-    return this.store.turn() === 'X' ? 'Your move (X)' : "Computer's move (O)";
+    return this.store.turn() === 'X' ? "Player 1's move (X)" : "Player 2's move (O)";
   }
 }

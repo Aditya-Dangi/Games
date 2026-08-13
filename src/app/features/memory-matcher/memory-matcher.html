@@ -1,6 +1,6 @@
 <app-game-page-header
   title="Memory Matcher"
-  subtitle="Flip two cards at a time and find every matching pair."
+  subtitle="Take turns with a friend — flip two cards, find a pair to score and go again."
   accentVar="--accent-memory"
 />
 
@@ -25,6 +25,15 @@
     </div>
   </div>
 
+  <div class="turn-indicators">
+    <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 1">
+      <span class="dot p1"></span> Player 1 — {{ store.scores()[1] }} pairs
+    </div>
+    <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 2">
+      <span class="dot p2"></span> Player 2 — {{ store.scores()[2] }} pairs
+    </div>
+  </div>
+
   <div class="board-wrap">
     <div class="grid" [style.--cols]="columns">
       @for (card of store.cards(); track card.id) {
@@ -34,7 +43,7 @@
 
     @if (store.isWon()) {
       <div class="complete-banner">
-        <p>🎉 Solved in {{ store.moves() }} moves — {{ formatTime(store.elapsedSeconds()) }}</p>
+        <p>{{ resultText() }}</p>
         <button type="button" class="btn btn-primary" (click)="store.newGame()">Play Again</button>
       </div>
     }

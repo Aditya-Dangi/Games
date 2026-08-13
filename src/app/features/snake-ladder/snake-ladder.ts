@@ -5,9 +5,12 @@ import {
   BOARD_SIZE,
   LADDERS,
   PLAYER_LABELS,
+  PlayerId,
   SNAKES,
   cellPercent,
   cellPosition,
+  moveDurationMs,
+  moveEasing,
 } from './snake-ladder.model';
 
 interface BoardCell {
@@ -65,13 +68,40 @@ export class SnakeLadder {
     })),
   ];
 
-  protected tokenStyle(player: 1 | 2): { left: string; top: string } {
+  protected tokenPosition(player: PlayerId): { left: string; top: string } {
     const pos = cellPercent(this.store.positions()[player]);
     const offset = player === 1 ? -6 : 6;
     return { left: `calc(${pos.left}% + ${offset}px)`, top: `${pos.top}%` };
   }
 
+  protected tokenDuration(player: PlayerId): string {
+    return `${moveDurationMs(this.store.movePhase()[player])}ms`;
+  }
+
+  protected tokenEasing(player: PlayerId): string {
+    return moveEasing(this.store.movePhase()[player]);
+  }
+
+  protected isClimbing(player: PlayerId): boolean {
+    return this.store.movePhase()[player] === 'climb';
+  }
+
+  protected isSliding(player: PlayerId): boolean {
+    return this.store.movePhase()[player] === 'slide';
+  }
+
+  protected isBouncing(player: PlayerId): boolean {
+    return this.store.bounce()[player];
+  }
+
   protected activePips(value: number | null): number[] {
     return value ? DICE_PIPS[value] : [];
+  }
+
+  protected rollButtonLabel(): string {
+    if (this.store.status() !== 'playing') return 'Game Over';
+    if (this.store.rolling()) return 'Rolling…';
+    if (this.store.moving() || this.store.turnTransitioning()) return 'Moving…';
+    return `Roll Dice — ${this.playerLabels[this.store.currentPlayer()]}`;
   }
 }

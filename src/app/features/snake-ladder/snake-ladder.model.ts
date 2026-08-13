@@ -46,6 +46,41 @@ export function cellPercent(cellNumber: number): { left: number; top: number } {
 }
 
 export const PLAYER_LABELS: Record<PlayerId, string> = {
-  1: 'You',
-  2: 'Computer',
+  1: 'Player 1',
+  2: 'Player 2',
 };
+
+export type MovePhase = 'idle' | 'step' | 'climb' | 'slide';
+
+// Timing for the step-by-step board animation. Kept as named constants so the
+// store (state machine) and component (CSS custom-property bindings) agree
+// on exactly how long each phase takes.
+export const DICE_ROLL_MS = 500;
+export const STEP_DURATION_MS = 260;
+export const LANDING_PAUSE_MS = 200;
+export const CLIMB_DURATION_MS = 700;
+export const SLIDE_DURATION_MS = 550;
+export const BOUNCE_DURATION_MS = 260;
+export const TURN_GAP_MS = 450;
+
+export function moveDurationMs(phase: MovePhase): number {
+  switch (phase) {
+    case 'climb':
+      return CLIMB_DURATION_MS;
+    case 'slide':
+      return SLIDE_DURATION_MS;
+    default:
+      return STEP_DURATION_MS;
+  }
+}
+
+export function moveEasing(phase: MovePhase): string {
+  switch (phase) {
+    case 'climb':
+      return 'var(--ease-climb)';
+    case 'slide':
+      return 'var(--ease-slide)';
+    default:
+      return 'var(--ease-out)';
+  }
+}

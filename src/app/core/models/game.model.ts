@@ -20,6 +20,7 @@ export interface Game {
   accentVar: string;
   difficulty: 1 | 2 | 3;
   playTime: string;
+  players: 1 | 2;
   featured?: boolean;
 }
 

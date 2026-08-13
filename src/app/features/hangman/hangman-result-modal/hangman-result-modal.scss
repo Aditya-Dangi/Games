@@ -33,9 +33,15 @@ h2 {
 
 p {
   color: var(--color-text-muted);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-2);
 
   b {
     color: var(--color-primary-strong);
   }
+}
+
+.result-text {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-bottom: var(--space-5);
 }

@@ -9,5 +9,6 @@ import { Component, input, output } from '@angular/core';
 export class HangmanResultModal {
   readonly isVictory = input.required<boolean>();
   readonly word = input.required<string>();
+  readonly resultText = input<string>('');
   readonly playAgain = output<void>();
 }

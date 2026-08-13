@@ -87,7 +87,14 @@ h3 {
   justify-content: space-between;
 }
 
-.play-time {
+.meta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.play-time,
+.players {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);

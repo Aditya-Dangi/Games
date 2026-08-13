@@ -1,53 +1,58 @@
-import { Injectable, signal } from '@angular/core';
-import { RPS_MOVES, RpsMove, RpsResult, RpsScore, resolveRound } from './rps.model';
+import { Injectable, computed, signal } from '@angular/core';
+import { RpsMove, RpsResult, resolveRound } from './rps.model';
 
-const STORAGE_KEY = 'score';
+export interface RpsScore {
+  p1: number;
+  p2: number;
+  ties: number;
+}
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class RpsStore {
-  readonly score = signal<RpsScore>(this.loadScore());
-  readonly playerMove = signal<RpsMove | null>(null);
-  readonly computerMove = signal<RpsMove | null>(null);
+  readonly p1Move = signal<RpsMove | null>(null);
+  readonly p2Move = signal<RpsMove | null>(null);
   readonly result = signal<RpsResult | null>(null);
+  readonly score = signal<RpsScore>({ p1: 0, p2: 0, ties: 0 });
 
-  play(move: RpsMove): void {
-    const computerMove = RPS_MOVES[Math.floor(Math.random() * RPS_MOVES.length)];
-    const result = resolveRound(move, computerMove);
+  readonly p1Picked = computed(() => this.p1Move() !== null);
+  readonly p2Picked = computed(() => this.p2Move() !== null);
+  readonly revealed = computed(() => this.p1Picked() && this.p2Picked());
 
-    this.playerMove.set(move);
-    this.computerMove.set(computerMove);
-    this.result.set(result);
+  pickP1(move: RpsMove): void {
+    if (this.p1Move()) return;
+    this.p1Move.set(move);
+    this.tryResolve();
+  }
 
-    this.score.update((score) => {
-      if (result === 'Win') return { ...score, wins: score.wins + 1 };
-      if (result === 'Lose') return { ...score, losses: score.losses + 1 };
-      return { ...score, ties: score.ties + 1 };
-    });
+  pickP2(move: RpsMove): void {
+    if (this.p2Move()) return;
+    this.p2Move.set(move);
+    this.tryResolve();
+  }
 
-    this.persistScore();
+  nextRound(): void {
+    this.p1Move.set(null);
+    this.p2Move.set(null);
+    this.result.set(null);
   }
 
   resetScore(): void {
-    this.score.set({ wins: 0, losses: 0, ties: 0 });
-    localStorage.removeItem(STORAGE_KEY);
+    this.score.set({ p1: 0, p2: 0, ties: 0 });
+    this.nextRound();
   }
 
-  private loadScore(): RpsScore {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      const parsed = raw ? JSON.parse(raw) : null;
-      const isValid =
-        parsed &&
-        typeof parsed.wins === 'number' &&
-        typeof parsed.losses === 'number' &&
-        typeof parsed.ties === 'number';
-      return isValid ? (parsed as RpsScore) : { wins: 0, losses: 0, ties: 0 };
-    } catch {
-      return { wins: 0, losses: 0, ties: 0 };
-    }
-  }
+  private tryResolve(): void {
+    const p1 = this.p1Move();
+    const p2 = this.p2Move();
+    if (!p1 || !p2) return;
 
-  private persistScore(): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.score()));
+    const result = resolveRound(p1, p2);
+    this.result.set(result);
+
+    this.score.update((s) => {
+      if (result === 'Win') return { ...s, p1: s.p1 + 1 };
+      if (result === 'Lose') return { ...s, p2: s.p2 + 1 };
+      return { ...s, ties: s.ties + 1 };
+    });
   }
 }
