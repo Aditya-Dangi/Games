@@ -1,20 +1,29 @@
 <app-game-page-header
   title="Tic-Tac-Toe"
-  subtitle="You're X, the computer is O. Line up three to win."
+  subtitle="Player 1 is X, Player 2 is O. Take turns on the same device — line up three to win."
   accentVar="--accent-ttt"
 />
 
 <section class="container game">
+  <div class="turn-indicators">
+    <div class="turn-indicator" [class.active-turn]="store.status() === 'playing' && store.turn() === 'X'">
+      <span class="dot p1"></span> Player 1 (X)
+    </div>
+    <div class="turn-indicator" [class.active-turn]="store.status() === 'playing' && store.turn() === 'O'">
+      <span class="dot p2"></span> Player 2 (O)
+    </div>
+  </div>
+
   <p class="status" [class.win]="store.status() === 'won'">{{ statusMessage() }}</p>
 
-  <div class="board" [class.locked]="store.status() !== 'playing' || store.turn() !== 'X'">
+  <div class="board">
     @for (i of cellIndices; track i) {
       <button
         type="button"
         class="cell"
         [class.win-cell]="store.winLine()?.includes(i)"
         [disabled]="!!store.board()[i] || store.status() !== 'playing'"
-        (click)="store.playerMove(i)"
+        (click)="store.move(i)"
         [attr.aria-label]="'Cell ' + (i + 1) + (store.board()[i] ? ', ' + store.board()[i] : ', empty')"
       >
         {{ store.board()[i] }}
@@ -23,8 +32,8 @@
   </div>
 
   <div class="scoreboard">
-    <span>Wins: {{ store.score().wins }}</span>
-    <span>Losses: {{ store.score().losses }}</span>
+    <span>Player 1: {{ store.score().p1 }}</span>
+    <span>Player 2: {{ store.score().p2 }}</span>
     <span>Ties: {{ store.score().ties }}</span>
   </div>
 

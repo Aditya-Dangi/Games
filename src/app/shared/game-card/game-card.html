@@ -17,12 +17,25 @@
     <p class="tagline">{{ game().tagline }}</p>
     <p class="description">{{ game().description }}</p>
     <div class="meta-row">
-      <span class="play-time">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <circle cx="8" cy="8" r="6.25" stroke="currentColor" stroke-width="1.4" />
-          <path d="M8 4.5V8l2.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        {{ game().playTime }}
+      <span class="meta-group">
+        <span class="play-time">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.25" stroke="currentColor" stroke-width="1.4" />
+            <path d="M8 4.5V8l2.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {{ game().playTime }}
+        </span>
+        <span class="players">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="5.5" cy="5.5" r="2.25" stroke="currentColor" stroke-width="1.4" />
+            <path d="M1.8 13c.5-2.4 2-3.6 3.7-3.6s3.2 1.2 3.7 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            @if (game().players === 2) {
+              <circle cx="11.5" cy="5.5" r="2.25" stroke="currentColor" stroke-width="1.4" />
+              <path d="M7.8 13c.5-2.4 2-3.6 3.7-3.6s3.2 1.2 3.7 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            }
+          </svg>
+          {{ game().players === 2 ? '2 Players' : '1 Player' }}
+        </span>
       </span>
       <span class="cta">
         Play now

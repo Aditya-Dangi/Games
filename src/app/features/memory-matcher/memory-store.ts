@@ -2,6 +2,8 @@ import { Injectable, OnDestroy, computed, signal } from '@angular/core';
 import { Subscription, interval, timer } from 'rxjs';
 import { MEMORY_PAIRS, MEMORY_SYMBOLS, MemoryCard, MemoryDifficulty } from './memory-matcher.model';
 
+type PlayerId = 1 | 2;
+
 @Injectable()
 export class MemoryStore implements OnDestroy {
   private timerSub?: Subscription;
@@ -13,10 +15,18 @@ export class MemoryStore implements OnDestroy {
   readonly busy = signal(false);
   readonly moves = signal(0);
   readonly elapsedSeconds = signal(0);
+  readonly currentPlayer = signal<PlayerId>(1);
+  readonly scores = signal<Record<PlayerId, number>>({ 1: 0, 2: 0 });
 
   readonly totalPairs = computed(() => MEMORY_PAIRS[this.difficulty()]);
   readonly matchedPairs = computed(() => this.cards().filter((c) => c.matched).length / 2);
   readonly isWon = computed(() => this.totalPairs() > 0 && this.matchedPairs() === this.totalPairs());
+  readonly winner = computed<PlayerId | 'tie' | null>(() => {
+    if (!this.isWon()) return null;
+    const s = this.scores();
+    if (s[1] === s[2]) return 'tie';
+    return s[1] > s[2] ? 1 : 2;
+  });
 
   constructor() {
     this.newGame('easy');
@@ -40,6 +50,8 @@ export class MemoryStore implements OnDestroy {
     this.busy.set(false);
     this.moves.set(0);
     this.elapsedSeconds.set(0);
+    this.currentPlayer.set(1);
+    this.scores.set({ 1: 0, 2: 0 });
     this.flipBackSub?.unsubscribe();
 
     this.timerSub?.unsubscribe();
@@ -61,12 +73,14 @@ export class MemoryStore implements OnDestroy {
     const [firstId, secondId] = flipped;
     const first = this.cards().find((c) => c.id === firstId)!;
     const second = this.cards().find((c) => c.id === secondId)!;
+    const player = this.currentPlayer();
 
     if (first.symbol === second.symbol) {
       this.cards.update((cards) =>
         cards.map((c) => (c.id === firstId || c.id === secondId ? { ...c, matched: true } : c)),
       );
       this.flippedIds.set([]);
+      this.scores.update((s) => ({ ...s, [player]: s[player] + 1 }));
       if (this.isWon()) {
         this.timerSub?.unsubscribe();
       }
@@ -79,6 +93,7 @@ export class MemoryStore implements OnDestroy {
       this.setFlipped(secondId, false);
       this.flippedIds.set([]);
       this.busy.set(false);
+      this.currentPlayer.set(player === 1 ? 2 : 1);
     });
   }
 

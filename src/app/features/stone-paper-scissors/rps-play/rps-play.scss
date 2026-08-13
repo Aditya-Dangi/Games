@@ -5,21 +5,96 @@
   padding-bottom: var(--space-8);
 }
 
+.arena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  width: 100%;
+  margin-bottom: var(--space-6);
+}
+
+.player-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 1;
+  min-width: 0;
+  min-height: 220px;
+  justify-content: center;
+}
+
+.player-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.p2 .player-label {
+  color: var(--accent-rps);
+}
+
+.vs-divider {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text-faint);
+  letter-spacing: 0.06em;
+}
+
+.locked-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-success);
+  animation: pop-in var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+}
+
+.revealed-move {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  animation: pop-in var(--duration-base) var(--ease-out);
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .moves {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-5);
-  margin-bottom: var(--space-7);
+  gap: var(--space-3);
 }
 
 .move-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  width: 140px;
-  height: 140px;
+  gap: var(--space-2);
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
   border: 2px solid var(--color-border);
   background: var(--color-surface);
@@ -27,13 +102,13 @@
   transition: transform var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
 
   svg {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
   }
 
   span {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
   }
 
   &:hover {
@@ -50,24 +125,6 @@
 .round-result {
   text-align: center;
   margin-bottom: var(--space-5);
-}
-
-.round-move {
-  color: var(--color-text-muted);
-  font-weight: 500;
-  margin-bottom: var(--space-3);
-
-  b {
-    color: var(--color-text);
-  }
-
-  .vs {
-    display: inline-block;
-    margin: 0 var(--space-2);
-    color: var(--color-text-faint);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-  }
 }
 
 .round-outcome {
@@ -105,14 +162,30 @@
   padding-inline: var(--space-5);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
+  .arena {
+    flex-direction: column;
+  }
+
+  .vs-divider {
+    order: 1;
+  }
+
+  .p2 {
+    order: 2;
+  }
+
   .move-btn {
-    width: 108px;
-    height: 108px;
+    width: 64px;
+    height: 64px;
 
     svg {
-      width: 34px;
-      height: 34px;
+      width: 24px;
+      height: 24px;
+    }
+
+    span {
+      font-size: 0.68rem;
     }
   }
 

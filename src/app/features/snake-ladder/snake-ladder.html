@@ -32,17 +32,37 @@
           }
         </svg>
 
-        <div class="token player-1" [style.left]="tokenStyle(1).left" [style.top]="tokenStyle(1).top" aria-hidden="true"></div>
-        <div class="token player-2" [style.left]="tokenStyle(2).left" [style.top]="tokenStyle(2).top" aria-hidden="true"></div>
+        <div
+          class="token player-1"
+          [class.climbing]="isClimbing(1)"
+          [class.sliding]="isSliding(1)"
+          [class.bounce]="isBouncing(1)"
+          [style.left]="tokenPosition(1).left"
+          [style.top]="tokenPosition(1).top"
+          [style.--move-duration]="tokenDuration(1)"
+          [style.--move-ease]="tokenEasing(1)"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="token player-2"
+          [class.climbing]="isClimbing(2)"
+          [class.sliding]="isSliding(2)"
+          [class.bounce]="isBouncing(2)"
+          [style.left]="tokenPosition(2).left"
+          [style.top]="tokenPosition(2).top"
+          [style.--move-duration]="tokenDuration(2)"
+          [style.--move-ease]="tokenEasing(2)"
+          aria-hidden="true"
+        ></div>
       </div>
     </div>
 
     <aside class="side-panel">
-      <div class="turn-indicator" [class.your-turn]="store.currentPlayer() === 1">
-        <span class="dot player-1"></span> You: square {{ store.positions()[1] }}
+      <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 1">
+        <span class="dot player-1"></span> {{ playerLabels[1] }}: square {{ store.positions()[1] }}
       </div>
-      <div class="turn-indicator" [class.your-turn]="store.currentPlayer() === 2">
-        <span class="dot player-2"></span> Computer: square {{ store.positions()[2] }}
+      <div class="turn-indicator" [class.active-turn]="store.currentPlayer() === 2">
+        <span class="dot player-2"></span> {{ playerLabels[2] }}: square {{ store.positions()[2] }}
       </div>
 
       <div class="dice" [class.rolling]="store.rolling()">
@@ -53,15 +73,15 @@
         </div>
       </div>
 
-      <button type="button" class="btn btn-primary roll-btn" [disabled]="!store.canRoll()" (click)="store.rollForPlayer()">
-        {{ store.currentPlayer() === 1 && store.status() === 'playing' ? 'Roll Dice' : 'Computer turn…' }}
+      <button type="button" class="btn btn-primary roll-btn" [disabled]="!store.canRoll()" (click)="store.roll()">
+        {{ rollButtonLabel() }}
       </button>
 
       <p class="message">{{ store.message() }}</p>
 
       @if (store.status() === 'finished') {
         <div class="result-banner">
-          <p>{{ store.winner() === 1 ? '🏆 You won!' : '🤖 Computer wins.' }}</p>
+          <p>🏆 {{ playerLabels[store.winner()!] }} wins!</p>
           <button type="button" class="btn btn-ghost" (click)="store.restart()">Play Again</button>
         </div>
       } @else {

@@ -1,50 +1,117 @@
-<app-game-page-header title="Stone Paper Scissors" subtitle="Pick your move." accentVar="--accent-rps" />
+<app-game-page-header
+  title="Stone Paper Scissors"
+  subtitle="Both players pick at the same time — choices stay hidden until everyone's locked in."
+  accentVar="--accent-rps"
+/>
 
 <section class="container game">
-  <div class="moves">
-    @for (move of moves; track move) {
-      <button type="button" class="move-btn" [class]="move.toLowerCase()" (click)="store.play(move)">
-        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          @switch (move) {
-            @case ('Stone') {
-              <circle cx="24" cy="26" r="15" fill="none" stroke="currentColor" stroke-width="3" />
-              <path d="M15 26a9 9 0 0 1 18 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+  <div class="arena">
+    <div class="player-panel p1">
+      <p class="player-label">Player 1</p>
+      @if (!store.revealed()) {
+        @if (store.p1Picked()) {
+          <div class="locked-in">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Locked in</span>
+          </div>
+        } @else {
+          <div class="moves">
+            @for (move of moves; track move) {
+              <button type="button" class="move-btn" [class]="move.toLowerCase()" (click)="store.pickP1(move)">
+                <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  @switch (move) {
+                    @case ('Stone') {
+                      <circle cx="24" cy="26" r="15" fill="none" stroke="currentColor" stroke-width="3" />
+                      <path d="M15 26a9 9 0 0 1 18 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                    }
+                    @case ('Paper') {
+                      <rect x="10" y="8" width="28" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="3" />
+                      <path d="M16 16v16M22 16v16M28 16v16M34 18v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                    }
+                    @case ('Scissors') {
+                      <circle cx="15" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+                      <circle cx="30" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+                      <path d="M18 31L38 10M33 31L13 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+                    }
+                  }
+                </svg>
+                <span>{{ move }}</span>
+              </button>
             }
-            @case ('Paper') {
-              <rect x="10" y="8" width="28" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="3" />
-              <path d="M16 16v16M22 16v16M28 16v16M34 18v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          </div>
+        }
+      } @else {
+        <div class="revealed-move">{{ store.p1Move() }}</div>
+      }
+    </div>
+
+    <div class="vs-divider">VS</div>
+
+    <div class="player-panel p2">
+      <p class="player-label">Player 2</p>
+      @if (!store.revealed()) {
+        @if (store.p2Picked()) {
+          <div class="locked-in">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Locked in</span>
+          </div>
+        } @else {
+          <div class="moves">
+            @for (move of moves; track move) {
+              <button type="button" class="move-btn" [class]="move.toLowerCase()" (click)="store.pickP2(move)">
+                <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  @switch (move) {
+                    @case ('Stone') {
+                      <circle cx="24" cy="26" r="15" fill="none" stroke="currentColor" stroke-width="3" />
+                      <path d="M15 26a9 9 0 0 1 18 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                    }
+                    @case ('Paper') {
+                      <rect x="10" y="8" width="28" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="3" />
+                      <path d="M16 16v16M22 16v16M28 16v16M34 18v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                    }
+                    @case ('Scissors') {
+                      <circle cx="15" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+                      <circle cx="30" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
+                      <path d="M18 31L38 10M33 31L13 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+                    }
+                  }
+                </svg>
+                <span>{{ move }}</span>
+              </button>
             }
-            @case ('Scissors') {
-              <circle cx="15" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
-              <circle cx="30" cy="34" r="5" fill="none" stroke="currentColor" stroke-width="2.6" />
-              <path d="M18 31L38 10M33 31L13 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
-            }
-          }
-        </svg>
-        <span>{{ move }}</span>
-      </button>
-    }
+          </div>
+        }
+      } @else {
+        <div class="revealed-move">{{ store.p2Move() }}</div>
+      }
+    </div>
   </div>
 
-  @if (store.result(); as result) {
+  @if (store.revealed()) {
     <div class="round-result">
-      <p class="round-move">
-        You played <b>{{ store.playerMove() }}</b>
-        <span class="vs">vs</span>
-        Computer played <b>{{ store.computerMove() }}</b>
-      </p>
-      <p class="round-outcome" [class]="result.toLowerCase()">
-        {{ result === 'Win' ? 'You Win' : result === 'Lose' ? 'You Lose' : 'Tie' }}
-      </p>
+      <p class="round-outcome" [class]="store.result()?.toLowerCase()">{{ resultText() }}</p>
+      <button type="button" class="btn btn-primary" (click)="store.nextRound()">Next Round</button>
     </div>
   } @else {
-    <p class="hint-text">Choose Stone, Paper or Scissors to play your first round.</p>
+    <p class="hint-text">
+      @if (!store.p1Picked() && !store.p2Picked()) {
+        Both players choose Stone, Paper or Scissors to start the round.
+      } @else if (!store.p1Picked()) {
+        Waiting on Player 1…
+      } @else {
+        Waiting on Player 2…
+      }
+    </p>
   }
 
   <div class="scoreboard">
-    <span>Wins: {{ store.score().wins }}</span>
-    <span>Losses: {{ store.score().losses }}</span>
+    <span>Player 1: {{ store.score().p1 }}</span>
     <span>Ties: {{ store.score().ties }}</span>
+    <span>Player 2: {{ store.score().p2 }}</span>
   </div>
 
   <button type="button" class="btn btn-ghost reset-btn" (click)="store.resetScore()">Reset Score</button>
